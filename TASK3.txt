@@ -1,0 +1,129 @@
+### **🚀 Blog Application Exercise: Build a Modular API with Users & Posts**  
+
+This exercise will test **all the concepts** you have learned, including:  
+✅ **Express Router** for modular route handling  
+✅ **MySQL (`mysql2`)** with `createConnection()` and `execute()` for prepared statements  
+✅ **CRUD operations** for **Users** and **Posts**  
+✅ **Middleware** (e.g., request logging)  
+✅ **Environment Variables** (`dotenv`) for security  
+✅ **Project Structure & Modularization**  
+
+---
+
+## **📝 Task Description**  
+You will build a **Blog API** with two modules:  
+1️⃣ **Users** – Manage users (Create, Retrieve, Update, Delete)  
+2️⃣ **Posts** – Manage blog posts, each belonging to a user  
+
+---
+
+## **🔨 Features to Implement**
+### **1. Users Module**  
+- **Create User (`POST /users`)**: Add a new user with `name` and `email`  
+- **Get All Users (`GET /users`)**: Fetch all users  
+- **Get User by ID (`GET /users/:id`)**: Fetch a specific user  
+- **Update User (`PUT /users/:id`)**: Modify user details  
+- **Delete User (`DELETE /users/:id`)**: Remove a user  
+
+### **2. Posts Module**  
+- **Create Post (`POST /posts`)**: Add a new post with `title`, `content`, and `user_id` (author)  
+- **Get All Posts (`GET /posts`)**: Fetch all posts  
+- **Get a Post by ID (`GET /posts/:id`)**: Fetch a single post  
+- **Update Post (`PUT /posts/:id`)**: Modify post details  
+- **Delete Post (`DELETE /posts/:id`)**: Remove a post  
+
+---
+
+## **📂 Project Structure**  
+Your project should follow this structure:  
+```
+/blog-api
+│── /node_modules         # Installed dependencies
+│── /routes               # Route handlers
+│    ├── users.js         # User routes
+│    ├── posts.js         # Post routes
+│── /controllers          # Business logic for each module
+│    ├── userController.js
+│    ├── postController.js
+│── /middleware           # Middleware functions
+│    ├── logger.js        # Logs request details
+│── /config               # Database connection
+│    ├── db.js            # MySQL connection
+│── /models               # SQL table creation scripts
+│── .env                  # Environment variables
+│── package.json          # Project dependencies
+│── index.js              # Main entry file
+```
+
+---
+
+## **🔗 Database Setup (MySQL)**  
+Create the database and tables in MySQL:  
+```sql
+CREATE DATABASE blogdb;
+USE blogdb;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL
+);
+
+CREATE TABLE posts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+```
+- **Users Table**: Stores `id`, `name`, `email`  
+- **Posts Table**: Stores `id`, `title`, `content`, and `user_id` (links to users)  
+
+---
+
+## **✅ Exercise Guidelines**
+### **1️⃣ Setting Up the Database Connection**
+- Use **`mysql2`**  
+- Use **`createConnection()`** (not pooling)  
+- Use **`.env`** to store database credentials  
+- Use **`execute()`** (prepared statements) for queries  
+
+### **2️⃣ Implement Express Router & Controllers**
+- **Users routes (`routes/users.js`)** and **Users controller (`controllers/userController.js`)**  
+- **Posts routes (`routes/posts.js`)** and **Posts controller (`controllers/postController.js`)**  
+
+### **3️⃣ Middleware**
+- Create a middleware (`logger.js`) that logs every request to the console  
+
+### **4️⃣ CRUD Operations**
+- Implement all CRUD operations using **async/await** and **prepared statements (`execute()`)**  
+
+### **5️⃣ Testing Your API**
+- Use **Postman or Thunder Client** to test each endpoint  
+
+---
+
+## **📌 Example Test Cases**
+### **Users**
+✅ `POST /users` → `{ "name": "John Doe", "email": "john@example.com" }`  
+✅ `GET /users` → Returns all users  
+✅ `GET /users/1` → Returns user with ID 1  
+✅ `PUT /users/1` → Updates user data  
+✅ `DELETE /users/1` → Removes user  
+
+### **Posts**
+✅ `POST /posts` → `{ "title": "First Post", "content": "Hello World", "user_id": 1 }`  
+✅ `GET /posts` → Returns all posts  
+✅ `GET /posts/1` → Returns post with ID 1  
+✅ `PUT /posts/1` → Updates post data  
+✅ `DELETE /posts/1` → Removes post  
+
+---
+
+### **🎯 Submission**
+- Ensure your project **follows the structure**  
+- Implement **all endpoints**  
+- Test with Postman/Thunder Client  
+
+🚀 **Once complete, your API should be fully functional and ready for production!**

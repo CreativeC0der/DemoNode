@@ -1,3 +1,5 @@
+UNDERSTAND PROMISES AND ASYNC/AWAIT. COMPARE WITH CALLBACKS
+
 ### **🚀 Blog Application Exercise: Build a Modular API with Users & Posts**  
 
 This exercise will test **all the concepts** you have learned, including:  
